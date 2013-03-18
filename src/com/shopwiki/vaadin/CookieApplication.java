@@ -30,8 +30,9 @@ import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
  */
 public abstract class CookieApplication extends Application implements HttpServletRequestListener {
 
-    private transient ThreadLocal<HttpServletRequest> requests = new ThreadLocal<HttpServletRequest>();
-    private transient ThreadLocal<HttpServletResponse> responses = new ThreadLocal<HttpServletResponse>();
+    // Had these transient but then it could cause NPE's when deserializing a session.
+    private ThreadLocal<HttpServletRequest> requests = new ThreadLocal<HttpServletRequest>();
+    private ThreadLocal<HttpServletResponse> responses = new ThreadLocal<HttpServletResponse>();
 
     @Override
     public void onRequestStart(HttpServletRequest request, HttpServletResponse response) {
