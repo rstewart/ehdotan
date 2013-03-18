@@ -16,6 +16,9 @@
 
 package com.shopwiki.vaadin;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,9 +33,15 @@ import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
  */
 public abstract class CookieApplication extends Application implements HttpServletRequestListener {
 
-    // Had these transient but then it could cause NPE's when deserializing a session.
-    private ThreadLocal<HttpServletRequest> requests = new ThreadLocal<HttpServletRequest>();
-    private ThreadLocal<HttpServletResponse> responses = new ThreadLocal<HttpServletResponse>();
+    private transient ThreadLocal<HttpServletRequest> requests = new ThreadLocal<HttpServletRequest>();
+    private transient ThreadLocal<HttpServletResponse> responses = new ThreadLocal<HttpServletResponse>();
+
+    // Need this because deserialization is stupid and sets transient fields to null.
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        ois.defaultReadObject();
+        requests = new ThreadLocal<HttpServletRequest>();
+        responses = new ThreadLocal<HttpServletResponse>();
+    }
 
     @Override
     public void onRequestStart(HttpServletRequest request, HttpServletResponse response) {
