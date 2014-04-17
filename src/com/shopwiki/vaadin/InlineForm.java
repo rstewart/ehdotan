@@ -34,7 +34,11 @@ public class InlineForm<T> extends HorizontalLayout {
     private final AbstractField field;
     private final Handler<T> handler;
 
-    public InlineForm(final AbstractField field, String submitCaption, Handler<T> handler) {
+    public static <T> InlineForm<T> create(AbstractField field, String submitCaption, Handler<T> handler) {
+        return new InlineForm<T>(field, submitCaption, handler);
+    }
+
+    protected InlineForm(final AbstractField field, String submitCaption, Handler<T> handler) {
         this.field = field;
         this.handler = handler;
 
