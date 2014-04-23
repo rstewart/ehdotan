@@ -80,7 +80,7 @@ public abstract class CookieApplication extends Application implements HttpServl
         return null;
     }
 
-    protected void deteteCookie(String name) {
+    protected void deleteCookie(String name) {
         Cookie cookie = new Cookie(name, "DELETE");
         cookie.setMaxAge(0);
         responses.get().addCookie(cookie);
