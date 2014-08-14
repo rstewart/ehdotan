@@ -36,7 +36,11 @@ public class EditForm<T> extends Form {
 	private final Button discardButton = new Button("Reset", this, "discard");
 	private final Collection<?> propertyIds;
 
-	public EditForm (String... fieldNames) {
+	public static <T> EditForm<T> create(String... fieldNames) {
+		return new EditForm<T>(fieldNames);
+	}
+
+	public EditForm(String... fieldNames) {
 		propertyIds = Arrays.asList(fieldNames);
 
 		// Enable buffering so that commit() must be called for the form before input is written to the data.
