@@ -59,7 +59,7 @@ public abstract class ParameterSelect<T> extends SWSelect {
 			params.remove(key);
 		} else {
 			String s = toString(value);
-			params.add(key, s);
+			params.put(key, s);
 		}
 	}
 }
