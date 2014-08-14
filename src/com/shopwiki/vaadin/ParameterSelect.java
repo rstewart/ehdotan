@@ -21,12 +21,17 @@ package com.shopwiki.vaadin;
  */
 public abstract class ParameterSelect<T> extends SWSelect {
 
-	public ParameterSelect() {
+	protected ParameterSelect() {
 		super();
 	}
 
+	/** Deserialize */
 	protected abstract T parse(String s);
 
+	/** Serialize */
+	protected abstract String toString(T value);
+
+	/** Sets the value of the Select according to the UrlParams */
 	public void set(UrlParams params, String key) {
 		setComponentError(null);
 
@@ -44,6 +49,17 @@ public abstract class ParameterSelect<T> extends SWSelect {
 			setValue(value);
 		} catch (NumberFormatException e) {
 			Errors.set(this, "Invalid " + key + ": " + s);
+		}
+	}
+
+	/** Sets the UrlParamsvalue of the Select according to the UrlParams */
+	public void put(UrlParams params, String key) {
+		T value = (T)getValue();
+		if (value == null) {
+			params.remove(key);
+		} else {
+			String s = toString(value);
+			params.add(key, s);
 		}
 	}
 }
