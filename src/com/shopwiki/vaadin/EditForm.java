@@ -52,7 +52,7 @@ public class EditForm<T> extends Form {
 		footer.addComponent(discardButton);
 		footer.setVisible(false);
 		setFooter(footer);
-/*
+		/*
 		addShortcutListener(new ShortcutListener("Commit", KeyCode.ENTER, null) {
 			@Override
 			public void handleAction(Object sender, Object target) {
@@ -71,8 +71,8 @@ public class EditForm<T> extends Form {
 				//}
 			}
 		});
-*/
-/*
+		 */
+		/*
 		commitButton.setEnabled(false);
 		discardButton.setEnabled(false);
 
@@ -83,7 +83,7 @@ public class EditForm<T> extends Form {
 				discardButton.setEnabled(true);
 			}
 		});
-*/
+		 */
 	}
 
 	@Override
@@ -102,15 +102,24 @@ public class EditForm<T> extends Form {
 	}
 
 	public void setBean(T bean) {
-		setBeanDataSource(new BeanItem<T>(bean));
+		if (bean == null) {
+			setBeanDataSource(null);
+		} else {
+			setBeanDataSource(new BeanItem<T>(bean));
+		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public BeanItem<T> getBeanDataSource() {
 		return (BeanItem<T>)getItemDataSource();
 	}
 
 	public T getBean() {
-		return getBeanDataSource().getBean();
+		BeanItem<T> item = getBeanDataSource();
+		if (item == null) {
+			return null;
+		}
+		return item.getBean();
 	}
 
 	@Override
