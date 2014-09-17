@@ -19,6 +19,7 @@ package com.shopwiki.vaadin;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
+import com.google.common.base.Charsets;
 import com.vaadin.Application;
 import com.vaadin.terminal.StreamResource;
 import com.vaadin.terminal.StreamResource.StreamSource;
@@ -39,7 +40,7 @@ public class StringFrame extends Embedded {
 
 		@Override
 		public InputStream getStream() {
-	        byte[] bytes = s.getBytes(Utils.UTF_8);
+	        byte[] bytes = s.getBytes(Charsets.UTF_8);
 	        return new ByteArrayInputStream(bytes);
 		}
 	}
