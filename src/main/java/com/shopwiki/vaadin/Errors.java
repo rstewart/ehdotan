@@ -16,6 +16,7 @@
 
 package com.shopwiki.vaadin;
 
+import com.google.common.base.Throwables;
 import com.vaadin.terminal.UserError;
 import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Component;
@@ -35,7 +36,7 @@ public class Errors { // TODO: Move this to Edhotan ???
 	}
 
 	public static void notify(Component component, String caption, Throwable t) {
-		notify(component, caption, Utils.stackTraceAsString(t));
+		notify(component, caption, Throwables.getStackTraceAsString(t));
 	}
 
 	public static void notify(Component component, String caption) {

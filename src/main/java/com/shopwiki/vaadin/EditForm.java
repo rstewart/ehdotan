@@ -19,6 +19,7 @@ package com.shopwiki.vaadin;
 import java.util.Arrays;
 import java.util.Collection;
 
+import com.google.common.base.Throwables;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.Button;
@@ -128,7 +129,7 @@ public class EditForm<T> extends Form {
 			super.commit();
 			getWindow().showNotification("Edits Saved", Window.Notification.TYPE_HUMANIZED_MESSAGE);
 		} catch (Throwable e) {
-			getWindow().showNotification("Save Failed", Utils.stackTraceAsString(e), Window.Notification.TYPE_ERROR_MESSAGE);
+			getWindow().showNotification("Save Failed", Throwables.getStackTraceAsString(e), Window.Notification.TYPE_ERROR_MESSAGE);
 		}
 	}
 }
